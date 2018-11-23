@@ -2,43 +2,46 @@ cook_book = {}
 
 def read_to_cookbook(filename = '', cook_book = {}):
     with open(filename, encoding='utf8') as file:
-        while(True):
+        for line in file:
             dish = []
-            dish_name = file.readline().strip()
-            if dish_name == '$':
-                break
+            dish_name = line.strip()
             comp_quant = file.readline().strip()
-            for num in range(1, int(comp_quant) + 1):
+            for num in range(0, int(comp_quant)):
                 component = {}
-                ingridients = file.readline().split('|')
+                ingridients = file.readline().strip().split('|')
                 component["ingridient_name"] = ingridients[0]
                 component["quantity"] = float(ingridients[1])
                 component["measure"] = ingridients[2]
                 dish.append(component)
                 cook_book[dish_name] = dish
-            space_line = file.readline()
+            file.readline().strip()
 
-def get_shop_list_by_dishes(dishes, person_count):
+def get_shop_list_by_dishes(dishes, person_count, cook_book = {}):
     shop_list_by_dishes = {}
-    ig_list = {}
     for dish in dishes:
-        for ingridient in dish:
-            ig_list['measure'] = ingridient['measure']
-            quantity_with_person_count = ig_list['quantity'] = ingridient['quantity'] * person_count
-            ig_list['quantity'] = quantity_with_person_count
-            if shop_list_by_dishes.get(ingridient['ingridient_name']):
-                get_ingridient = shop_list[ingridient['ingridient_name']]
-                get_quantity = get_ingridient['quantity']
-                ig_list['quantity'] += get_quantity
-            shop_list_by_dishes[ingridient['ingridient_name']] = ig_list
+        for component in cook_book[dish]:
+            components_list = {}
+            component_quantity = component['quantity']
+            component_measure = component['measure']
+            component_name = component['ingridient_name']
+            if component_name in shop_list_by_dishes:
+                component_quantity = component['quantity'] + shop_list_by_dishes[component_name]['quantity']
+            components_list['quantity'] = component_quantity * person_count
+            components_list['measure'] = component_measure
+            shop_list_by_dishes[component_name] = components_list
     return shop_list_by_dishes
-
 
 read_to_cookbook('cook_book.txt', cook_book)
 
-dishes = [cook_book['Фахитос'],cook_book['Утка по-пекински']]
-shop_list = {}
-person_count = 2.0
+dishes = ['Фахитос', 'Омлет', 'Хачапури по-аджарски']
+person_count = 3.0
 
-shop_list = get_shop_list_by_dishes(dishes, person_count)
-print(shop_list)
+shop_list_by_dishes = get_shop_list_by_dishes(dishes, person_count, cook_book)
+
+print('\nЗаказ:')
+for num, dish in enumerate(dishes):
+    print(num + 1, ') ', dish, sep='')
+print('Количество персон:', int(person_count))
+print('\nСписок компонентов для блюд:')
+for component, value in shop_list_by_dishes.items():
+    print('{}: {}{}'.format(component, value['quantity'], value['measure']))
