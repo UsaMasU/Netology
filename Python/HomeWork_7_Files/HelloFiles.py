@@ -3,7 +3,7 @@ cook_book = {}
 def read_to_cookbook(filename):
     cook_book = {}
     try:
-        with open(filename, encoding='utf8') as file:
+        with open(filename, encoding = 'utf8') as file:
             for line in file:
                 dish = []
                 dish_name = line.strip()
