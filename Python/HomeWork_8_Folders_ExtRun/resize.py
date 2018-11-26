@@ -15,7 +15,6 @@ if __name__ == '__main__':
     except FileExistsError:
         pass
     finally:
-        pass
         for root, dirs, files in os.walk(source_dir):
             for filename in files:
                 if filename.endswith('.jpg'):
