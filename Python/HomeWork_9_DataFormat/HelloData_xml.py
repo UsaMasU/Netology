@@ -28,7 +28,9 @@ def word_usage(words):
     return words_use
 
 # XML parsing
-tree = ET.parse("newsafr.xml")
+parser = ET.XMLParser(encoding="utf-8")
+tree = ET.parse("newsafr.xml", parser=parser)
+
 titles = []
 root = tree.getroot()
 xml_title = root.find("channel/title")
