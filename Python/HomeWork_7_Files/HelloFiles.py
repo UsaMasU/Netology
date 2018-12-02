@@ -1,4 +1,4 @@
-cook_book = {}
+
 
 def read_to_cookbook(filename):
     cook_book = {}
@@ -40,17 +40,17 @@ def get_shop_list_by_dishes(dishes, person_count = 1, cook_book = {}):
             continue
     return shop_list_by_dishes
 
-cook_book = read_to_cookbook('cook_book.txt')
+if __name__ == '__main__':
+    cook_book = {}
+    cook_book = read_to_cookbook('cook_book.txt')
+    dishes = ['Фахитос', 'Омлет', 'Хачапури по-аджарски']
+    person_count = 3.0
+    shop_list_by_dishes = get_shop_list_by_dishes(dishes, person_count, cook_book)
 
-dishes = ['Фахитос', 'Омлет', 'Хачапури по-аджарски']
-person_count = 3.0
-
-shop_list_by_dishes = get_shop_list_by_dishes(dishes, person_count, cook_book)
-
-print('\nЗаказ:')
-for num, dish in enumerate(dishes):
-    print(num + 1, ') ', dish, sep='')
-print('Количество персон:', int(person_count))
-print('\nСписок компонентов для блюд:')
-for component, value in shop_list_by_dishes.items():
-    print('{}: {}{}'.format(component, value['quantity'], value['measure']))
+    print('\nЗаказ:')
+    for num, dish in enumerate(dishes):
+        print(num + 1, ') ', dish, sep='')
+    print('Количество персон:', int(person_count))
+    print('\nСписок компонентов для блюд:')
+    for component, value in shop_list_by_dishes.items():
+        print('{}: {}{}'.format(component, value['quantity'], value['measure']))
