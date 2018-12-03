@@ -1,4 +1,4 @@
-
+#from pprint import pprint
 
 def read_to_cookbook(filename):
     cook_book = {}
@@ -40,8 +40,7 @@ def get_shop_list_by_dishes(dishes, person_count = 1, cook_book = {}):
             continue
     return shop_list_by_dishes
 
-if __name__ == '__main__':
-    cook_book = {}
+def main_func():
     cook_book = read_to_cookbook('cook_book.txt')
     dishes = ['Фахитос', 'Омлет', 'Хачапури по-аджарски']
     person_count = 3.0
@@ -54,3 +53,7 @@ if __name__ == '__main__':
     print('\nСписок компонентов для блюд:')
     for component, value in shop_list_by_dishes.items():
         print('{}: {}{}'.format(component, value['quantity'], value['measure']))
+
+if __name__ == '__main__':
+    main_func()
+    #pprint(globals())
