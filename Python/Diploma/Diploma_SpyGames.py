@@ -339,7 +339,7 @@ if __name__ == '__main__':
         User_One.get_friends_list()
         #print('friends', User_One.friends)
         user_group_list = set()
-        user_group_list = set()
+        cross_groups_list = set()
         user_unique_list = set()
 
         for group in User_One.groups['items']:
@@ -349,8 +349,6 @@ if __name__ == '__main__':
 
         cross_groups = User_One.get_user_only_groups()
         print(cross_groups)
-
-        cross_groups_list = set()
 
         for group in cross_groups:
             cross_groups_list.add(group)
