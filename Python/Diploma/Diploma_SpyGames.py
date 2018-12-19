@@ -347,7 +347,7 @@ if __name__ == '__main__':
 
         print('user group:', user_group_list)
 
-        cross_groups = User_One.get_user_only_groups(1,3)
+        cross_groups = User_One.get_user_only_groups()
         print(cross_groups)
 
         cross_groups_list = set()
