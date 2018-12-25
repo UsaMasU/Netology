@@ -18,7 +18,8 @@ auth_data = {
     'v': '5.52'
 }
 # активный токен
-token = '8f9e5ab49db2fd32ab5d8ca59e548b3bec5aa0c4a66a2b91abebd683a228c1024ba2217a5efb226e6ac33'
+#token = '8f9e5ab49db2fd32ab5d8ca59e548b3bec5aa0c4a66a2b91abebd683a228c1024ba2217a5efb226e6ac33'
+token = '33dada42f424ac65e363704ad2595f645d926cf8f5879ab8eab648f856c83e3b4ea10dfb4758392cbe44d'
 ver = '5.92'  # версия API
 
 
