@@ -18,8 +18,9 @@ auth_data = {
     'v': '5.52'
 }
 # активный токен
-#token = '8f9e5ab49db2fd32ab5d8ca59e548b3bec5aa0c4a66a2b91abebd683a228c1024ba2217a5efb226e6ac33'
-token = '33dada42f424ac65e363704ad2595f645d926cf8f5879ab8eab648f856c83e3b4ea10dfb4758392cbe44d'
+# token = '8f9e5ab49db2fd32ab5d8ca59e548b3bec5aa0c4a66a2b91abebd683a228c1024ba2217a5efb226e6ac33'
+# token = '33dada42f424ac65e363704ad2595f645d926cf8f5879ab8eab648f856c83e3b4ea10dfb4758392cbe44d'
+token = 'ed1271af9e8883f7a7c2cefbfddfcbc61563029666c487b2f71a5227cce0d1b533c4af4c5b888633c06ae'
 ver = '5.92'  # версия API
 
 
@@ -84,7 +85,7 @@ class User:
     groups = {}  # список групп
     groups_data = {}  # подробные данные групп
 
-    def __init__(self, settings={}):
+    def __init__(self, settings):
         #  если имя в параметрах пропущено то задаем пустое имя экземпляру
         try:
             settings['obj_name']
@@ -302,7 +303,8 @@ class User:
                             "var friend_counter = friends.items.length;"
                       
                             "while (friend_counter != 0) {"
-                                "groups =  API.groups.get({""user_id"": friends.items[friend_counter], ""extended"": 1});"
+                                "groups =  API.groups.get({""user_id"": friends.items[friend_counter],"
+                                                                          " ""extended"": 1});"
                                 "groups_items = groups.items;"
                                 
                                 "check_id = groups_items@.id.indexOf(group_id);"                    
@@ -322,7 +324,8 @@ class User:
 
                 try:
                     exec_data = response.json()
-                    print(num_group+1, ') ID: ', exec_data['response'][0], '; проверено друзей: ', exec_data['response'][2], sep='')
+                    print(num_group+1, ') ID: ', exec_data['response'][0],
+                          '; проверено друзей: ', exec_data['response'][2], sep='')
 
                     offset = offset + exec_data['response'][1]  # увеличение смещения
                     friends_count = exec_data['response'][2]  # изменение счетчика друзей пользователя
@@ -356,7 +359,7 @@ class User:
 
         return filter_cross_groups
 
-    def get_data(self, method_name='', params={}, delay_time=0.0):
+    def get_data(self, method_name='', params=dict, delay_time=0.0):
         """
         выполнение запроса к VK API
         """
