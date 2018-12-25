@@ -28,7 +28,23 @@ def check_token():
     """
     функция проверки актуальности токена
     """
-    response = requests.get(M_URL + 'users.get', {'user_ids': '1', 'access_token': token, 'v': ver})
+    response = {}
+    conn_attempts = 0  # счетчик попыток соедининеня
+    while conn_attempts != 5:  # 5 попыток
+        try:
+            response = requests.get(M_URL + 'users.get', {'user_ids': '1', 'access_token': token, 'v': ver})
+            break
+        except requests.exceptions.Timeout:
+            print('Timeout! Повтор попытки соединения...')
+            conn_attempts += 1
+            time.sleep(1.0)  # пауза между попытками
+        except requests.exceptions.RequestException:
+            print('Error Request! Повтор попытки соединения...')
+            conn_attempts += 1
+            time.sleep(1.0)   # пауза между попытками
+        if conn_attempts == 5:
+            print('Ошибка соединения!')
+            exit(1)  # завершение работы
     conn_state = response.json()
     for state, val_state in conn_state.items():
         if state == 'error':
@@ -365,7 +381,23 @@ class User:
         """
         time.sleep(delay_time)  # пауза чтобы VK не заблокировал соединение
         print('*')
-        response = requests.get(M_URL + method_name, params)  # строка запроса данных VK
+        response = {}
+        conn_attempts = 0  # счетчик попыток соединения
+        while conn_attempts != 5:  # 5 попыток
+            try:
+                response = requests.get(M_URL + method_name, params)  # строка запроса данных VK
+                break
+            except requests.exceptions.Timeout:
+                print('Timeout! Повтор попытки соединения...')
+                conn_attempts += 1
+                time.sleep(1.0)  # пауза между попытками
+            except requests.exceptions.RequestException:
+                print('Error Request! Повтор попытки соединения...')
+                conn_attempts += 1
+                time.sleep(1.0)  # пауза между попытками
+            if conn_attempts == 5:
+                print('Ошибка соединения!')
+                exit(1)  # завершение работы
         return response
 
 
